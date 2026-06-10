@@ -1,0 +1,231 @@
+﻿<Window x:Class="FanucProgrammer.TextToPointsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Генерация точек из текста" 
+        Height="700" 
+        Width="900"
+        WindowStartupLocation="CenterScreen"
+        Background="#F5F5F5">
+    <Window.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#A52A2A"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="15,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="4" 
+                                Padding="{TemplateBinding Padding}">
+                            <Border.Effect>
+                                <DropShadowEffect Color="#40000000" Direction="270" ShadowDepth="2" BlurRadius="4" Opacity="0.3"/>
+                            </Border.Effect>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#A52A2A"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#800000"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Card" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#20000000" Direction="270" ShadowDepth="3" BlurRadius="8" Opacity="0.2"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#E0E0E0"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="#2196F3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Grid.Row="0" Background="#FF8C00" Padding="20,15">
+            <TextBlock Text="Генерация точек из текста" 
+                      FontSize="24" 
+                      FontWeight="Bold" 
+                      Foreground="White"/>
+        </Border>
+
+        <Border Grid.Row="1" Style="{StaticResource Card}" Margin="20,10,20,20">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Загрузка текста" 
+                              FontSize="18" 
+                              FontWeight="Bold" 
+                              Margin="0,0,0,10"
+                              Foreground="#333"/>
+
+                    <Button x:Name="LoadWordButton"
+                            Content="Загрузить из Word (.docx)"
+                            Style="{StaticResource ModernButton}"
+                            Margin="0,0,0,10"
+                            Click="LoadWordButton_Click"/>
+
+                    <Button x:Name="LoadTextButton"
+                            Content="Загрузить из TXT файла"
+                            Style="{StaticResource ModernButton}"
+                            Margin="0,0,0,15"
+                            Click="LoadTextButton_Click"/>
+
+                    <Separator Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Ввод текста вручную" 
+                              FontSize="16" 
+                              FontWeight="Bold" 
+                              Margin="0,0,0,10"
+                              Foreground="#333"/>
+
+                    <TextBlock Text="Введите текст:" 
+                              FontWeight="SemiBold" 
+                              Margin="0,0,0,5"/>
+                    
+                    
+
+                    <TextBox x:Name="TextInputTextBox" 
+                            Style="{StaticResource ModernTextBox}"
+                            Height="200"
+                            TextWrapping="Wrap"
+                            AcceptsReturn="True"
+                            VerticalScrollBarVisibility="Auto"
+                            Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Настройки текста" 
+                              FontSize="16" 
+                              FontWeight="Bold" 
+                              Margin="0,0,0,10"
+                              Foreground="#333"/>
+
+                    <Grid Margin="0,0,0,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Шрифт:" Grid.Row="0" Grid.Column="0" Margin="0,5,10,5"/>
+                        <ComboBox x:Name="FontComboBox" Grid.Row="0" Grid.Column="1" Margin="0,5,0,5" SelectedIndex="0">
+                            <ComboBoxItem Content="Arial"/>
+                            <ComboBoxItem Content="Times New Roman"/>
+                            <ComboBoxItem Content="Verdana"/>
+                            <ComboBoxItem Content="Courier New"/>
+                            <ComboBoxItem Content="Tahoma"/>
+                            
+                            
+                        </ComboBox>
+
+                        <!-- Добавьте эту кнопку после ComboBox с шрифтами: -->
+                        <Button x:Name="LoadCustomFontButton"
+                            Content="Загрузить шрифт из файла"
+                            Style="{StaticResource ModernButton}"
+                            Margin="0,5,10,5"
+                            Click="LoadCustomFontButton_Click"
+                            ToolTip="Загрузить пользовательский шрифт из файла (.ttf, .otf, .fon)"/>
+
+                        <TextBlock Text="Размер шрифта (мм):" Grid.Row="1" Grid.Column="0" Margin="0,5,10,5"/>
+                        <TextBox x:Name="FontSizeTextBox" Grid.Row="1" Grid.Column="1" Text="12" Margin="0,5,0,5"/>
+
+                        <TextBlock Text="Межстрочный интервал:" Grid.Row="2" Grid.Column="0" Margin="0,5,10,5"/>
+                        <TextBox x:Name="LineSpacingTextBox" Grid.Row="2" Grid.Column="1" Text="15" Margin="0,5,0,5"/>
+
+                        <TextBlock Text="Глубина (Z, мм):" Grid.Row="3" Grid.Column="0" Margin="0,5,10,5"/>
+                        <TextBox x:Name="DepthTextBox" Grid.Row="3" Grid.Column="1" Text="50" Margin="0,5,0,5"/>
+
+                        <TextBlock Text="Высота подъема (мм):" Grid.Row="4" Grid.Column="0" Margin="0,5,10,5"/>
+                        <TextBox x:Name="LiftHeightTextBox" Grid.Row="4" Grid.Column="1" Text="10" Margin="0,5,0,5"/>
+
+                        <TextBlock Text="Масштаб:" Grid.Row="5" Grid.Column="0" Margin="0,5,10,5"/>
+                        <TextBox x:Name="ScaleTextBox" Grid.Row="5" Grid.Column="1" Text="1.0" Margin="0,5,0,5"/>
+                        
+                        
+                        
+                    </Grid>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                        <TextBlock Text="Шаг точек (мм):" Width="120" VerticalAlignment="Center"/>
+                        <TextBox x:Name="PointStepTextBox" Width="60" Text="0.5" VerticalAlignment="Center"/>
+                        <!-- После ComboBox со шрифтами добавьте: -->
+                        <TextBlock Text="Режим написания:" Grid.Row="0" Grid.Column="0" Margin="10,5,10,5"/>
+                        <ComboBox x:Name="TextModeComboBox" Grid.Row="0" Grid.Column="1" Margin="10,5,0,5" SelectedIndex="0"/>
+                    </StackPanel>
+
+                    <CheckBox x:Name="SeparateCharactersCheckBox"
+                             Content="Раздельные символы (подъем между буквами)"
+                             IsChecked="True"
+                             Margin="0,0,0,15"
+                             FontWeight="SemiBold"
+                             ToolTip="При включении робот будет подниматься между буквами, чтобы каждая буква писалась отдельно"/>
+
+                    <Button x:Name="GeneratePointsButton" 
+                            Content="Создать точки из текста" 
+                            Style="{StaticResource ModernButton}"
+                            Margin="0,0,0,20"
+                            Click="GeneratePointsButton_Click"/>
+
+                    <TextBlock Text="Информация:" 
+                              FontWeight="SemiBold" 
+                              Margin="0,0,0,5"/>
+
+                    <TextBox x:Name="PointsInfoTextBox" 
+                            Style="{StaticResource ModernTextBox}"
+                            Height="150"
+                            IsReadOnly="True"
+                            TextWrapping="Wrap"
+                            VerticalScrollBarVisibility="Auto"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</Window>

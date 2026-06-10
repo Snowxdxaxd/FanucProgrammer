@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" width="793.7008" height="1122.52">
+  <rect x="0" y="0" width="793.7008" height="1122.52" stroke-width="1" style="fill:white;stroke:lightgray;" />
+  <rect x="75.59055" y="75.59055" width="642.5197" height="971.3386" stroke-width="1" stroke-dasharray="5 5" style="fill:none;stroke:lightblue;" />
+  <text x="75.59055" y="171.5905" font-family="Times New Roman" font-size="96" style="fill:black;">Привет</text>
+</svg>
